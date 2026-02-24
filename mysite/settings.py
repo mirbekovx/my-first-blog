@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-s+74d^travcrab$#k34j)wz*tk+n@f8m_x*hn2(4m)vw90e^m9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
+ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com', 'localhost:8000', 'localhost']
 
 
 # Application definition
@@ -75,14 +75,21 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+DB_NAME = os.getenv('DB_NAME', 'myfirstblog')
+DB_USER = os.getenv('DB_USER', 'myuser')
+DB_PASSWORD = os.getenv('DB_PASSWORD', 'mypassword')
+DB_HOST = os.getenv('DB_HOST', 'db')       # имя сервиса в docker-compose
+DB_PORT = os.getenv('DB_PORT', '5432')     # внутренний порт Postgres
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'myfirstblog',
-        'USER': 'myuser',
-        'PASSWORD': 'mypassword',
-        'HOST': 'localhost',  # т.к. Django запускается на хосте, а не в контейнере
-        'PORT': '5438',
+        'NAME': DB_NAME,
+        'USER': DB_USER,
+        'PASSWORD': DB_PASSWORD,
+        'HOST': DB_HOST,
+        'PORT': DB_PORT,
     }
 }
 
