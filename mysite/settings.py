@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'blog'
 ]
 
@@ -78,8 +79,10 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DB_NAME = os.getenv('DB_NAME', 'myfirstblog')
 DB_USER = os.getenv('DB_USER', 'myuser')
 DB_PASSWORD = os.getenv('DB_PASSWORD', 'mypassword')
-DB_HOST = os.getenv('DB_HOST', 'db')       # имя сервиса в docker-compose
-DB_PORT = os.getenv('DB_PORT', '5432')     # внутренний порт Postgres
+# По умолчанию для локальной разработки подключаемся к Postgres на localhost:5438.
+# В Docker значения переопределяются через db.env (DB_HOST=db, DB_PORT=5432).
+DB_HOST = os.getenv('DB_HOST', 'localhost')
+DB_PORT = os.getenv('DB_PORT', '5438')
 
 
 DATABASES = {
@@ -138,3 +141,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = Path(BASE_DIR / 'media')
+
+# Куда отправить пользователя после входа
+LOGIN_REDIRECT_URL = '/'
+
+# Куда отправить пользователя после выхода
+LOGOUT_REDIRECT_URL = '/'

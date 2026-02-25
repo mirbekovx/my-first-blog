@@ -5,7 +5,7 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /app
 
 # Устанавливаем зависимости (минимум Django)
-RUN pip install --no-cache-dir "django>=6.0.2" psycopg2-binary
+RUN pip install --no-cache-dir "django>=5.0" psycopg2-binary djangorestframework
 
 # Копируем проект внутрь контейнера
 COPY . /app
