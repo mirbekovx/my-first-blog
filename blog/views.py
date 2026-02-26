@@ -45,3 +45,14 @@ def post_detail(request, pk):
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all().order_by('-created_date')
     serializer_class = PostSerializer
+
+    # Используем ТОЛЬКО этот метод для логирования
+    def initial(self, request, *args, **kwargs):
+        # 1. Сначала даем DRF сделать свою работу
+        super().initial(request, *args, **kwargs)
+
+        # 2. Печатаем данные (flush=True обязателен для Docker)
+        print("\n" + "=" * 30, flush=True)
+        print(f"METHOD: {request.method}", flush=True)
+        print(f"DATA: {request.data}", flush=True)
+        print("=" * 30 + "\n", flush=True)

@@ -1,8 +1,12 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from blog import views
 from django.contrib.auth import views as auth_views
+from rest_framework.routers import DefaultRouter
+from blog.views import PostViewSet
 
+router = DefaultRouter()
+router.register(r'posts', PostViewSet) # Теперь эндпоинт будет /posts/
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -15,4 +19,5 @@ urlpatterns = [
         name='login',
     ),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('', include(router.urls)),
 ]

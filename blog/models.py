@@ -34,3 +34,4 @@ class Comment(models.Model):
         if self.author:
             return f"Комментарий от {self.author.username}"
         return "Комментарий без автора"
+
